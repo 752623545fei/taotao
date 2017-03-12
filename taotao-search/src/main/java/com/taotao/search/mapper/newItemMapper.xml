@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.taotao.search.mapper.NewItemMapper" >
+
+    <select id="getPriceById" resultType="com.taotao.pojo.TbItem">
+        SELECT id, price
+        FROM new_items_copy
+    </select>
+
+    <update id="updatePrice" >
+        UPDATE new_items SET price = #{price}
+        WHERE id = #{id}
+    </update>
+
+</mapper>

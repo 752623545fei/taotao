@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.taotao.mapper.TbUserAddressMapper" >
+  <resultMap id="BaseResultMap" type="com.taotao.pojo.TbUserAddress" >
+    <id column="address_id" property="addressId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="consignee_name" property="consigneeName" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="province_id" property="provinceId" jdbcType="VARCHAR" />
+    <result column="city_id" property="cityId" jdbcType="VARCHAR" />
+    <result column="county_id" property="countyId" jdbcType="VARCHAR" />
+    <result column="consignee_address" property="consigneeAddress" jdbcType="VARCHAR" />
+    <result column="fullAddress" property="fulladdress" jdbcType="VARCHAR" />
+    <result column="easy_buy" property="easyBuy" jdbcType="BIT" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="address_alias" property="addressAlias" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    address_id, user_id, consignee_name, mobile, phone, province_id, city_id, county_id, 
+    consignee_address, fullAddress, easy_buy, email, address_alias
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.taotao.pojo.TbUserAddressExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_user_address
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_user_address
+    where address_id = #{addressId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_user_address
+    where address_id = #{addressId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.taotao.pojo.TbUserAddressExample" >
+    delete from tb_user_address
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.taotao.pojo.TbUserAddress" >
+    insert into tb_user_address (address_id, user_id, consignee_name, 
+      mobile, phone, province_id, 
+      city_id, county_id, consignee_address, 
+      fullAddress, easy_buy, email, 
+      address_alias)
+    values (#{addressId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{consigneeName,jdbcType=VARCHAR}, 
+      #{mobile,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{provinceId,jdbcType=VARCHAR}, 
+      #{cityId,jdbcType=VARCHAR}, #{countyId,jdbcType=VARCHAR}, #{consigneeAddress,jdbcType=VARCHAR}, 
+      #{fulladdress,jdbcType=VARCHAR}, #{easyBuy,jdbcType=BIT}, #{email,jdbcType=VARCHAR}, 
+      #{addressAlias,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.taotao.pojo.TbUserAddress" >
+    insert into tb_user_address
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="addressId != null" >
+        address_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="consigneeName != null" >
+        consignee_name,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="provinceId != null" >
+        province_id,
+      </if>
+      <if test="cityId != null" >
+        city_id,
+      </if>
+      <if test="countyId != null" >
+        county_id,
+      </if>
+      <if test="consigneeAddress != null" >
+        consignee_address,
+      </if>
+      <if test="fulladdress != null" >
+        fullAddress,
+      </if>
+      <if test="easyBuy != null" >
+        easy_buy,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="addressAlias != null" >
+        address_alias,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="addressId != null" >
+        #{addressId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="consigneeName != null" >
+        #{consigneeName,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceId != null" >
+        #{provinceId,jdbcType=VARCHAR},
+      </if>
+      <if test="cityId != null" >
+        #{cityId,jdbcType=VARCHAR},
+      </if>
+      <if test="countyId != null" >
+        #{countyId,jdbcType=VARCHAR},
+      </if>
+      <if test="consigneeAddress != null" >
+        #{consigneeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="fulladdress != null" >
+        #{fulladdress,jdbcType=VARCHAR},
+      </if>
+      <if test="easyBuy != null" >
+        #{easyBuy,jdbcType=BIT},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="addressAlias != null" >
+        #{addressAlias,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.taotao.pojo.TbUserAddressExample" resultType="java.lang.Integer" >
+    select count(*) from tb_user_address
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_user_address
+    <set >
+      <if test="record.addressId != null" >
+        address_id = #{record.addressId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.consigneeName != null" >
+        consignee_name = #{record.consigneeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobile != null" >
+        mobile = #{record.mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.provinceId != null" >
+        province_id = #{record.provinceId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cityId != null" >
+        city_id = #{record.cityId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.countyId != null" >
+        county_id = #{record.countyId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.consigneeAddress != null" >
+        consignee_address = #{record.consigneeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fulladdress != null" >
+        fullAddress = #{record.fulladdress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.easyBuy != null" >
+        easy_buy = #{record.easyBuy,jdbcType=BIT},
+      </if>
+      <if test="record.email != null" >
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addressAlias != null" >
+        address_alias = #{record.addressAlias,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_user_address
+    set address_id = #{record.addressId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      consignee_name = #{record.consigneeName,jdbcType=VARCHAR},
+      mobile = #{record.mobile,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      province_id = #{record.provinceId,jdbcType=VARCHAR},
+      city_id = #{record.cityId,jdbcType=VARCHAR},
+      county_id = #{record.countyId,jdbcType=VARCHAR},
+      consignee_address = #{record.consigneeAddress,jdbcType=VARCHAR},
+      fullAddress = #{record.fulladdress,jdbcType=VARCHAR},
+      easy_buy = #{record.easyBuy,jdbcType=BIT},
+      email = #{record.email,jdbcType=VARCHAR},
+      address_alias = #{record.addressAlias,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.taotao.pojo.TbUserAddress" >
+    update tb_user_address
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="consigneeName != null" >
+        consignee_name = #{consigneeName,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceId != null" >
+        province_id = #{provinceId,jdbcType=VARCHAR},
+      </if>
+      <if test="cityId != null" >
+        city_id = #{cityId,jdbcType=VARCHAR},
+      </if>
+      <if test="countyId != null" >
+        county_id = #{countyId,jdbcType=VARCHAR},
+      </if>
+      <if test="consigneeAddress != null" >
+        consignee_address = #{consigneeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="fulladdress != null" >
+        fullAddress = #{fulladdress,jdbcType=VARCHAR},
+      </if>
+      <if test="easyBuy != null" >
+        easy_buy = #{easyBuy,jdbcType=BIT},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="addressAlias != null" >
+        address_alias = #{addressAlias,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where address_id = #{addressId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.taotao.pojo.TbUserAddress" >
+    update tb_user_address
+    set user_id = #{userId,jdbcType=INTEGER},
+      consignee_name = #{consigneeName,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      province_id = #{provinceId,jdbcType=VARCHAR},
+      city_id = #{cityId,jdbcType=VARCHAR},
+      county_id = #{countyId,jdbcType=VARCHAR},
+      consignee_address = #{consigneeAddress,jdbcType=VARCHAR},
+      fullAddress = #{fulladdress,jdbcType=VARCHAR},
+      easy_buy = #{easyBuy,jdbcType=BIT},
+      email = #{email,jdbcType=VARCHAR},
+      address_alias = #{addressAlias,jdbcType=VARCHAR}
+    where address_id = #{addressId,jdbcType=INTEGER}
+  </update>
+</mapper>
